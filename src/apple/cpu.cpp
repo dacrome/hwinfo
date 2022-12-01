@@ -72,9 +72,9 @@ std::string CPU::getModelName() {
   }
   return model;
 #else
-  char* model_2[1024];
-  size_t size = sizeof(model_2);
-  if (sysctlbyname("machdep.cpu.brand_string", model_2, &size, NULL, 0) < 0) {
+  char model[100];
+  size_t size = sizeof(model);
+  if (sysctlbyname("machdep.cpu.brand_string", &model, &size, NULL, 0) < 0) {
     perror("sysctl");
   }
   return std::string(model);
